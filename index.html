@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>منصة QDU للاختبار التفاعلي</title>
-  <script src="/_sdk/element_sdk.js"></script>
-  <script src="/_sdk/data_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -72,12 +70,12 @@
             color: var(--text-primary);
             transition: all 0.3s ease;
             width: 100%;
-            min-height: 100%;
+            min-height: 100vh;
         }
         
         .app-container {
             width: 100%;
-            min-height: 100%;
+            min-height: 100vh;
             background: var(--bg-primary);
         }
         
@@ -315,22 +313,6 @@
             margin-left: 8px;
         }
         
-        .loading-spinner {
-            border: 3px solid var(--border-color);
-            border-top: 3px solid var(--medical-blue);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
         .stat-badge {
             display: inline-flex;
             align-items: center;
@@ -379,6 +361,8 @@
         }
     </style>
   <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
  </head>
  <body class="light-mode" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
   <div class="app-container"><button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الليلي">
@@ -391,15 +375,10 @@
    <div id="mainContent"></div>
   </div>
   <script>
-        const defaultConfig = {
+        const config = {
             platform_title: "منصة QDU للاختبار التفاعلي",
             subject_name: "مادة التصوير الشعاعي",
-            student_name: "مقتدى الكناني",
-            primary_color: "#2563eb",
-            secondary_color: "#ffffff",
-            text_color: "#1a202c",
-            accent_color: "#10b981",
-            background_color: "#f0f4f8"
+            student_name: "مقتدى الكناني"
         };
 
         const lectures = [
@@ -407,7 +386,7 @@
                 id: "pelvis",
                 title: "The Pelvis",
                 titleAr: "الحوض",
-                questionsCount: 62,
+                questionsCount: 50,
                 icon: "🦴",
                 questions: [
                     {
@@ -1298,51 +1277,215 @@
                 id: "femur",
                 title: "The Femur",
                 titleAr: "عظم الفخذ",
-                questionsCount: 5,
+                questionsCount: 20,
                 icon: "🦴",
                 questions: [
                     {
                         id: 1,
-                        question: "The femur is the longest bone in the human body.",
-                        questionAr: "عظم الفخذ هو أطول عظمة في جسم الإنسان.",
-                        type: "truefalse",
-                        correct: true,
-                        explanation: "نعم، عظم الفخذ (Femur) هو أطول وأقوى عظمة في الجسم البشري."
+                        question: "When performing the AP Femur projection, which joints must be included in the image?",
+                        questionAr: "عند إجراء إسقاط AP للفخذ، أي المفاصل يجب تضمينها في الصورة؟",
+                        type: "multiple",
+                        options: ["Hip and ankle joints", "Knee and ankle joints", "Hip and knee joints", "Both hip joints bilaterally"],
+                        correct: 2,
+                        explanation: "يجب تضمين مفصلي الورك والركبة (Hip and knee joints) في صورة AP للفخذ."
                     },
                     {
                         id: 2,
-                        question: "Which part of the femur articulates with the hip bone?",
-                        questionAr: "أي جزء من عظم الفخذ يتمفصل مع عظم الورك؟",
+                        question: "What is the required patient position for the Lateral femur projection?",
+                        questionAr: "ما هو وضع المريض المطلوب لإسقاط الفخذ الجانبي؟",
                         type: "multiple",
-                        options: ["Femoral shaft", "Femoral head", "Medial condyle", "Lateral condyle"],
-                        correct: 1,
-                        explanation: "رأس الفخذ (Femoral head) هو الجزء الكروي الذي يتمفصل مع حُق الورك."
+                        options: ["Supine with knee fully extended", "Prone with leg internally rotated", "Sitting erect with affected leg extended", "Lying on affected side with knee slightly flexed"],
+                        correct: 3,
+                        explanation: "يجب أن يستلقي المريض على الجانب المصاب مع ثني الركبة قليلاً (Lying on affected side with knee slightly flexed)."
                     },
                     {
                         id: 3,
-                        question: "What is the name of the bony prominence on the lateral side of the proximal femur?",
-                        questionAr: "ما اسم البروز العظمي على الجانب الخارجي من الجزء العلوي لعظم الفخذ؟",
+                        question: "Subluxation is often related to:",
+                        questionAr: "الخلع الجزئي غالباً ما يرتبط بـ:",
                         type: "multiple",
-                        options: ["Lesser trochanter", "Greater trochanter", "Femoral condyle", "Linea aspera"],
-                        correct: 1,
-                        explanation: "المدور الأكبر (Greater trochanter) هو البروز العظمي البارز على الجانب الخارجي للفخذ."
+                        options: ["Torn lateral ligaments", "Increased bone mass", "Excessive muscle growth", "Hyperextension of the elbow"],
+                        correct: 0,
+                        explanation: "الخلع الجزئي (Subluxation) غالباً ما يرتبط بتمزق الأربطة الجانبية (Torn lateral ligaments)."
                     },
                     {
                         id: 4,
-                        question: "The femur articulates with the tibia at the knee joint.",
-                        questionAr: "يتمفصل عظم الفخذ مع عظم الظنبوب عند مفصل الركبة.",
-                        type: "truefalse",
-                        correct: true,
-                        explanation: "نعم، لقمتا الفخذ (Femoral condyles) تتمفصلان مع لقمتي الظنبوب لتشكيل مفصل الركبة."
+                        question: "In the AP Femur projection, the patient should be positioned:",
+                        questionAr: "في إسقاط AP للفخذ، يجب أن يكون وضع المريض:",
+                        type: "multiple",
+                        options: ["Prone with knee flexed", "Supine with leg extended", "Lateral with limb abducted", "Sitting with hip flexed"],
+                        correct: 1,
+                        explanation: "يجب أن يكون المريض مستلقياً على الظهر مع الساق ممدودة (Supine with leg extended)."
                     },
                     {
                         id: 5,
-                        question: "Which radiographic projection best demonstrates the femoral shaft?",
-                        questionAr: "أي إسقاط إشعاعي يُظهر جسم عظم الفخذ بشكل أفضل؟",
+                        question: "For the AP Femur, the affected thigh must be:",
+                        questionAr: "لإسقاط AP للفخذ، يجب أن يكون الفخذ المصاب:",
                         type: "multiple",
-                        options: ["Lateral view only", "AP view only", "Both AP and Lateral views", "Oblique view only"],
+                        options: ["Shifted laterally toward the cassette edge", "Adjusted to the midline of the table", "Elevated 10 cm above table level", "Positioned perpendicular to the grid"],
+                        correct: 1,
+                        explanation: "يجب تعديل الفخذ المصاب إلى خط منتصف الطاولة (Adjusted to the midline of the table)."
+                    },
+                    {
+                        id: 6,
+                        question: "The AP Femur requires the leg to be:",
+                        questionAr: "يتطلب إسقاط AP للفخذ أن تكون الساق:",
+                        type: "multiple",
+                        options: ["Externally rotated 25°", "Internally rotated 15°", "Flexed at the knee 60°", "Rotated medially 45°"],
+                        correct: 1,
+                        explanation: "يجب تدوير الساق داخلياً بمقدار 15 درجة (Internally rotated 15°)."
+                    },
+                    {
+                        id: 7,
+                        question: "In AP Femur imaging, the anatomy included must cover:",
+                        questionAr: "في تصوير AP للفخذ، يجب أن يغطي التشريح المضمن:",
+                        type: "multiple",
+                        options: ["Only the femoral head", "The hip and knee joints", "Pelvis and lumbar spine", "Distal tibia and fibula"],
+                        correct: 1,
+                        explanation: "يجب أن يغطي التصوير مفصلي الورك والركبة (The hip and knee joints)."
+                    },
+                    {
+                        id: 8,
+                        question: "The Center Point for the AP Femur is located at the:",
+                        questionAr: "نقطة المركز لإسقاط AP للفخذ تقع عند:",
+                        type: "multiple",
+                        options: ["Midpoint of the patella", "Mid thigh", "Level of the greater trochanter", "Distal femoral condyles"],
+                        correct: 1,
+                        explanation: "تقع نقطة المركز في منتصف الفخذ (Mid thigh)."
+                    },
+                    {
+                        id: 9,
+                        question: "For the Lateral Femur projection, the patient should be:",
+                        questionAr: "لإسقاط الفخذ الجانبي، يجب أن يكون المريض:",
+                        type: "multiple",
+                        options: ["Lying on the unaffected side", "Standing with weight bearing", "Lying on the affected side with knee slightly flexed", "Supine with the leg externally rotated"],
                         correct: 2,
-                        explanation: "يجب الحصول على كل من الإسقاط الأمامي الخلفي (AP) والجانبي (Lateral) لتقييم شامل لجسم الفخذ."
+                        explanation: "يجب أن يستلقي المريض على الجانب المصاب مع ثني الركبة قليلاً."
+                    },
+                    {
+                        id: 10,
+                        question: "Foreign bodies are included under:",
+                        questionAr: "الأجسام الغريبة مدرجة تحت:",
+                        type: "multiple",
+                        options: ["Technical errors", "Normal anatomical", "Pathological indications", "Non-pathological artifacts"],
+                        correct: 2,
+                        explanation: "الأجسام الغريبة (Foreign bodies) تُدرج تحت الدلالات المرضية (Pathological indications)."
+                    },
+                    {
+                        id: 11,
+                        question: "The Central Ray in the AP Femur projection is:",
+                        questionAr: "الشعاع المركزي في إسقاط AP للفخذ يكون:",
+                        type: "multiple",
+                        options: ["Angled 20° cephalic", "Directed horizontally", "Perpendicular", "Angled 15° caudal"],
+                        correct: 2,
+                        explanation: "يكون الشعاع المركزي عمودياً (Perpendicular) على الفيلم."
+                    },
+                    {
+                        id: 12,
+                        question: "The Lateral Femur projection typically requires the knee to be:",
+                        questionAr: "يتطلب إسقاط الفخذ الجانبي عادةً أن تكون الركبة:",
+                        type: "multiple",
+                        options: ["Fully extended", "Slightly flexed", "Hyperextended", "Internally rotated"],
+                        correct: 1,
+                        explanation: "يجب أن تكون الركبة مثنية قليلاً (Slightly flexed) في الإسقاط الجانبي للفخذ."
+                    },
+                    {
+                        id: 13,
+                        question: "Which of the following is listed as a pathological indication for femur imaging?",
+                        questionAr: "أي من التالي مدرج كدلالة مرضية لتصوير الفخذ؟",
+                        type: "multiple",
+                        options: ["Appendicitis", "Pneumonia", "Migraine", "Gout"],
+                        correct: 3,
+                        explanation: "النقرس (Gout) هو دلالة مرضية لتصوير الفخذ."
+                    },
+                    {
+                        id: 14,
+                        question: "What is the correct patient position for an AP femur projection?",
+                        questionAr: "ما هو وضع المريض الصحيح لإسقاط AP للفخذ؟",
+                        type: "multiple",
+                        options: ["Supine with leg extended", "Standing", "Lying on affected side", "Prone with leg extended"],
+                        correct: 0,
+                        explanation: "الوضع الصحيح هو الاستلقاء على الظهر مع الساق ممدودة (Supine with leg extended)."
+                    },
+                    {
+                        id: 15,
+                        question: "How many degrees should the leg be internally rotated for the AP femur projection?",
+                        questionAr: "كم درجة يجب تدوير الساق داخلياً لإسقاط AP للفخذ؟",
+                        type: "multiple",
+                        options: ["45 degrees", "0 degrees", "30 degrees", "15 degrees"],
+                        correct: 3,
+                        explanation: "يجب تدوير الساق داخلياً بمقدار 15 درجة."
+                    },
+                    {
+                        id: 16,
+                        question: "Which joints should be included on the AP femur image?",
+                        questionAr: "أي المفاصل يجب تضمينها في صورة AP للفخذ؟",
+                        type: "multiple",
+                        options: ["Hip and knee joints", "Ankle only", "Pelvis only", "Foot only"],
+                        correct: 0,
+                        explanation: "يجب تضمين مفصلي الورك والركبة (Hip and knee joints)."
+                    },
+                    {
+                        id: 17,
+                        question: "Where is the center point for the AP femur projection?",
+                        questionAr: "أين تقع نقطة المركز لإسقاط AP للفخذ؟",
+                        type: "multiple",
+                        options: ["Hip joint", "Knee joint", "Mid thigh", "Trochanter"],
+                        correct: 2,
+                        explanation: "تقع نقطة المركز في منتصف الفخذ (Mid thigh)."
+                    },
+                    {
+                        id: 18,
+                        question: "Which of the following is NOT listed as a pathological indication?",
+                        questionAr: "أي من التالي غير مدرج كدلالة مرضية؟",
+                        type: "multiple",
+                        options: ["Osteoarthritis", "Subluxation", "Gout", "Diabetes"],
+                        correct: 3,
+                        explanation: "السكري (Diabetes) ليس دلالة مرضية لتصوير الفخذ."
+                    },
+                    {
+                        id: 19,
+                        question: "How should the affected thigh be positioned for an AP femur X-ray?",
+                        questionAr: "كيف يجب وضع الفخذ المصاب لأشعة AP للفخذ؟",
+                        type: "multiple",
+                        options: ["Adjusted to lateral side of table", "Adjusted to midline of table", "Elevated above the head", "Bent at the hip"],
+                        correct: 1,
+                        explanation: "يجب تعديل الفخذ المصاب إلى خط منتصف الطاولة (Adjusted to midline of table)."
+                    },
+                    {
+                        id: 20,
+                        question: "Which of the following is NOT listed as a pathological indication for femur imaging?",
+                        questionAr: "أي من التالي غير مدرج كدلالة مرضية لتصوير الفخذ؟",
+                        type: "multiple",
+                        options: ["Fracture and dislocations", "Appendicitis", "Foreign bodies", "Osteoarthritis"],
+                        correct: 1,
+                        explanation: "التهاب الزائدة الدودية (Appendicitis) ليس دلالة مرضية لتصوير الفخذ."
+                    },
+                    {
+                        id: 21,
+                        question: "When performing an AP femur X-ray, what is the recommended degree of internal rotation of the leg?",
+                        questionAr: "عند إجراء أشعة AP للفخذ، ما هي درجة التدوير الداخلي الموصى بها للساق؟",
+                        type: "multiple",
+                        options: ["5 degrees", "10 degrees", "15 degrees", "20 degrees"],
+                        correct: 2,
+                        explanation: "درجة التدوير الداخلي الموصى بها هي 15 درجة."
+                    },
+                    {
+                        id: 22,
+                        question: "Which pathological condition listed involves torn lateral ligaments?",
+                        questionAr: "أي حالة مرضية مدرجة تشمل تمزق الأربطة الجانبية؟",
+                        type: "multiple",
+                        options: ["Osteoarthritis", "Gout", "Subluxation", "Foreign bodies"],
+                        correct: 2,
+                        explanation: "الخلع الجزئي (Subluxation) يشمل تمزق الأربطة الجانبية."
+                    },
+                    {
+                        id: 23,
+                        question: "Which of the following is listed as a pathological indication for imaging?",
+                        questionAr: "أي من التالي مدرج كدلالة مرضية للتصوير؟",
+                        type: "multiple",
+                        options: ["Mid thigh", "Leg extended", "Gout", "Knee slightly flexed"],
+                        correct: 2,
+                        explanation: "النقرس (Gout) هو دلالة مرضية للتصوير."
                     }
                 ]
             }
@@ -1353,127 +1496,23 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let answers = [];
-        let showingTranslation = {};
         let isDarkMode = false;
-        let recordCount = 0;
-
-        const dataHandler = {
-            onDataChanged(data) {
-                recordCount = data.length;
-            }
-        };
 
         document.addEventListener('keydown', function(e) {
-            if (
-                (e.ctrlKey || e.metaKey) && (
-                    e.key === 'c' || e.key === 'C' ||
-                    e.key === 'x' || e.key === 'X' ||
-                    e.key === 'a' || e.key === 'A' ||
-                    e.key === 'u' || e.key === 'U' ||
-                    e.key === 's' || e.key === 'S'
-                )
-            ) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x' || e.key === 'a' || e.key === 'u' || e.key === 's')) {
                 e.preventDefault();
                 return false;
             }
-            
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-            
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+            if (e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
                 e.preventDefault();
                 return false;
             }
         });
 
-        async function initializeApp() {
-            const dataSdkResult = await window.dataSdk.init(dataHandler);
-            if (!dataSdkResult.isOk) {
-                console.error("Failed to initialize Data SDK");
-            }
-
-            if (window.elementSdk) {
-                window.elementSdk.init({
-                    defaultConfig,
-                    onConfigChange: async (config) => {
-                        document.documentElement.style.setProperty('--medical-blue', config.primary_color || defaultConfig.primary_color);
-                        document.documentElement.style.setProperty('--bg-secondary', config.secondary_color || defaultConfig.secondary_color);
-                        document.documentElement.style.setProperty('--text-primary', config.text_color || defaultConfig.text_color);
-                        document.documentElement.style.setProperty('--success-color', config.accent_color || defaultConfig.accent_color);
-                        document.documentElement.style.setProperty('--bg-primary', config.background_color || defaultConfig.background_color);
-                        
-                        renderCurrentView();
-                    },
-                    mapToCapabilities: (config) => ({
-                        recolorables: [
-                            {
-                                get: () => config.background_color || defaultConfig.background_color,
-                                set: (value) => {
-                                    if (window.elementSdk) {
-                                        window.elementSdk.config.background_color = value;
-                                        window.elementSdk.setConfig({ background_color: value });
-                                    }
-                                }
-                            },
-                            {
-                                get: () => config.secondary_color || defaultConfig.secondary_color,
-                                set: (value) => {
-                                    if (window.elementSdk) {
-                                        window.elementSdk.config.secondary_color = value;
-                                        window.elementSdk.setConfig({ secondary_color: value });
-                                    }
-                                }
-                            },
-                            {
-                                get: () => config.text_color || defaultConfig.text_color,
-                                set: (value) => {
-                                    if (window.elementSdk) {
-                                        window.elementSdk.config.text_color = value;
-                                        window.elementSdk.setConfig({ text_color: value });
-                                    }
-                                }
-                            },
-                            {
-                                get: () => config.primary_color || defaultConfig.primary_color,
-                                set: (value) => {
-                                    if (window.elementSdk) {
-                                        window.elementSdk.config.primary_color = value;
-                                        window.elementSdk.setConfig({ primary_color: value });
-                                    }
-                                }
-                            },
-                            {
-                                get: () => config.accent_color || defaultConfig.accent_color,
-                                set: (value) => {
-                                    if (window.elementSdk) {
-                                        window.elementSdk.config.accent_color = value;
-                                        window.elementSdk.setConfig({ accent_color: value });
-                                    }
-                                }
-                            }
-                        ],
-                        borderables: [],
-                        fontEditable: undefined,
-                        fontSizeable: undefined
-                    }),
-                    mapToEditPanelValues: (config) => new Map([
-                        ["platform_title", config.platform_title || defaultConfig.platform_title],
-                        ["subject_name", config.subject_name || defaultConfig.subject_name],
-                        ["student_name", config.student_name || defaultConfig.student_name]
-                    ])
-                });
-            }
-
+        function initializeApp() {
             document.getElementById('themeToggle').addEventListener('click', toggleTheme);
             document.getElementById('fullscreenToggle').addEventListener('click', toggleFullscreen);
-            
             renderCurrentView();
-        }
-
-        function getConfig() {
-            return window.elementSdk ? window.elementSdk.config : defaultConfig;
         }
 
         function toggleTheme() {
@@ -1522,19 +1561,18 @@
         }
 
         function renderHome() {
-            const config = getConfig();
             return `
                 <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
                     <div class="header-gradient" style="padding: 40px; border-radius: 16px; margin-bottom: 40px; text-align: center;">
                         <h1 class="arabic-text" style="font-size: 36px; font-weight: 900; margin-bottom: 12px; color: white;">
-                            ${config.platform_title || defaultConfig.platform_title}
+                            ${config.platform_title}
                         </h1>
                         <p class="arabic-text" style="font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.9);">
-                            ${config.subject_name || defaultConfig.subject_name}
+                            ${config.subject_name}
                         </p>
                         <div style="margin-top: 24px; padding: 16px; background: rgba(255,255,255,0.2); border-radius: 12px; display: inline-block;">
                             <p class="arabic-text" style="font-size: 18px; color: white;">
-                                اسم الطالب: <strong>${config.student_name || defaultConfig.student_name}</strong>
+                                اسم الطالب: <strong>${config.student_name}</strong>
                             </p>
                         </div>
                     </div>
@@ -1544,7 +1582,7 @@
                     </h2>
                     
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
-                        ${lectures.map((lecture, index) => `
+                        ${lectures.map(lecture => `
                             <div class="card lecture-card" data-lecture-id="${lecture.id}">
                                 <div style="text-align: center; margin-bottom: 16px; font-size: 48px;">
                                     ${lecture.icon}
@@ -1567,7 +1605,6 @@
         }
 
         function renderQuiz() {
-            const config = getConfig();
             const question = currentLecture.questions[currentQuestionIndex];
             const progress = ((currentQuestionIndex) / currentLecture.questions.length) * 100;
             
@@ -1607,21 +1644,11 @@
                         </div>
                         
                         <div id="options-container" style="direction: ltr;">
-                            ${question.type === 'multiple' ? 
-                                question.options.map((option, index) => `
-                                    <button class="option-button english-text" data-option-index="${index}" style="margin-bottom: 16px; text-align: left; font-size: 18px; padding: 20px;">
-                                        <strong style="font-size: 20px; margin-right: 12px;">${String.fromCharCode(65 + index)}.</strong> ${option}
-                                    </button>
-                                `).join('') :
-                                `
-                                    <button class="option-button english-text" data-option-index="true" style="margin-bottom: 16px; text-align: left; font-size: 18px; padding: 20px;">
-                                        <strong style="font-size: 20px; margin-right: 12px;">✓</strong> True
-                                    </button>
-                                    <button class="option-button english-text" data-option-index="false" style="margin-bottom: 16px; text-align: left; font-size: 18px; padding: 20px;">
-                                        <strong style="font-size: 20px; margin-right: 12px;">✗</strong> False
-                                    </button>
-                                `
-                            }
+                            ${question.options.map((option, index) => `
+                                <button class="option-button english-text" data-option-index="${index}" style="margin-bottom: 16px; text-align: left; font-size: 18px; padding: 20px;">
+                                    <strong style="font-size: 20px; margin-right: 12px;">${String.fromCharCode(65 + index)}.</strong> ${option}
+                                </button>
+                            `).join('')}
                         </div>
                         
                         <div id="feedback-container"></div>
@@ -1632,7 +1659,6 @@
         }
 
         function renderResult() {
-            const config = getConfig();
             const percentage = Math.round((score / currentLecture.questions.length) * 100);
             let resultClass = 'result-fail';
             let message = 'لا بأس، كل خبير كان مبتدئاً. راجع إجاباتك وحاول مجدداً! 💪';
@@ -1691,7 +1717,6 @@
         }
 
         function renderReview() {
-            const config = getConfig();
             return `
                 <div style="max-width: 900px; margin: 0 auto; padding: 20px;">
                     <div class="card" style="margin-bottom: 24px;">
@@ -1705,9 +1730,7 @@
                     
                     ${currentLecture.questions.map((question, index) => {
                         const userAnswer = answers[index];
-                        const isCorrect = question.type === 'multiple' 
-                            ? userAnswer === question.correct 
-                            : userAnswer === question.correct;
+                        const isCorrect = userAnswer === question.correct;
                         
                         return `
                             <div class="card" style="margin-bottom: 24px; border-right: 4px solid ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'};">
@@ -1725,41 +1748,22 @@
                                     ${question.questionAr}
                                 </p>
                                 
-                                ${question.type === 'multiple' ? `
-                                    <div style="margin-bottom: 16px;">
-                                        <div style="margin-bottom: 8px;">
-                                            <strong class="arabic-text">إجابتك:</strong>
-                                            <span class="english-text" style="color: ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'}; font-weight: 600;">
-                                                ${question.options[userAnswer]}
+                                <div style="margin-bottom: 16px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <strong class="arabic-text">إجابتك:</strong>
+                                        <span class="english-text" style="color: ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'}; font-weight: 600;">
+                                            ${question.options[userAnswer]}
+                                        </span>
+                                    </div>
+                                    ${!isCorrect ? `
+                                        <div>
+                                            <strong class="arabic-text" style="color: var(--success-color);">الإجابة الصحيحة:</strong>
+                                            <span class="english-text" style="color: var(--success-color); font-weight: 600;">
+                                                ${question.options[question.correct]}
                                             </span>
                                         </div>
-                                        ${!isCorrect ? `
-                                            <div>
-                                                <strong class="arabic-text" style="color: var(--success-color);">الإجابة الصحيحة:</strong>
-                                                <span class="english-text" style="color: var(--success-color); font-weight: 600;">
-                                                    ${question.options[question.correct]}
-                                                </span>
-                                            </div>
-                                        ` : ''}
-                                    </div>
-                                ` : `
-                                    <div style="margin-bottom: 16px;">
-                                        <div style="margin-bottom: 8px;">
-                                            <strong class="arabic-text">إجابتك:</strong>
-                                            <span class="english-text" style="color: ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'}; font-weight: 600;">
-                                                ${userAnswer ? 'True' : 'False'}
-                                            </span>
-                                        </div>
-                                        ${!isCorrect ? `
-                                            <div>
-                                                <strong class="arabic-text" style="color: var(--success-color);">الإجابة الصحيحة:</strong>
-                                                <span class="english-text" style="color: var(--success-color); font-weight: 600;">
-                                                    ${question.correct ? 'True' : 'False'}
-                                                </span>
-                                            </div>
-                                        ` : ''}
-                                    </div>
-                                `}
+                                    ` : ''}
+                                </div>
                                 
                                 <div style="background: rgba(37, 99, 235, 0.1); border-right: 4px solid var(--medical-blue); padding: 16px; border-radius: 8px;">
                                     <strong class="arabic-text" style="color: var(--medical-blue);">💡 الشرح:</strong>
@@ -1801,7 +1805,7 @@
             optionButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
                     const optionIndex = e.currentTarget.dataset.optionIndex;
-                    handleAnswer(optionIndex);
+                    handleAnswer(parseInt(optionIndex));
                 });
             });
             
@@ -1828,7 +1832,6 @@
             currentQuestionIndex = 0;
             score = 0;
             answers = [];
-            showingTranslation = {};
             currentView = 'quiz';
             renderCurrentView();
         }
@@ -1836,15 +1839,11 @@
         function toggleTranslation(questionId) {
             const translationDiv = document.getElementById(`translation-${questionId}`);
             if (translationDiv) {
-                if (translationDiv.style.display === 'none') {
-                    translationDiv.style.display = 'block';
-                } else {
-                    translationDiv.style.display = 'none';
-                }
+                translationDiv.style.display = translationDiv.style.display === 'none' ? 'block' : 'none';
             }
         }
 
-        async function handleAnswer(optionIndex) {
+        function handleAnswer(optionIndex) {
             const question = currentLecture.questions[currentQuestionIndex];
             const optionsContainer = document.getElementById('options-container');
             const feedbackContainer = document.getElementById('feedback-container');
@@ -1853,33 +1852,14 @@
             
             buttons.forEach(btn => btn.disabled = true);
             
-            let userAnswer;
-            let isCorrect;
-            
-            if (question.type === 'multiple') {
-                userAnswer = parseInt(optionIndex);
-                isCorrect = userAnswer === question.correct;
-            } else {
-                userAnswer = optionIndex === 'true';
-                isCorrect = userAnswer === question.correct;
-            }
-            
-            answers.push(userAnswer);
+            const isCorrect = optionIndex === question.correct;
+            answers.push(optionIndex);
             
             buttons.forEach((btn, idx) => {
-                if (question.type === 'multiple') {
-                    if (idx === question.correct) {
-                        btn.classList.add('correct');
-                    } else if (idx === userAnswer && !isCorrect) {
-                        btn.classList.add('incorrect');
-                    }
-                } else {
-                    const btnValue = btn.dataset.optionIndex === 'true';
-                    if (btnValue === question.correct) {
-                        btn.classList.add('correct');
-                    } else if (btnValue === userAnswer && !isCorrect) {
-                        btn.classList.add('incorrect');
-                    }
+                if (idx === question.correct) {
+                    btn.classList.add('correct');
+                } else if (idx === optionIndex && !isCorrect) {
+                    btn.classList.add('incorrect');
                 }
             });
             
@@ -1890,7 +1870,8 @@
                     if (currentQuestionIndex < currentLecture.questions.length) {
                         renderCurrentView();
                     } else {
-                        finishQuiz();
+                        currentView = 'result';
+                        renderCurrentView();
                     }
                 }, 1500);
             } else {
@@ -1914,44 +1895,11 @@
                     if (currentQuestionIndex < currentLecture.questions.length) {
                         renderCurrentView();
                     } else {
-                        finishQuiz();
+                        currentView = 'result';
+                        renderCurrentView();
                     }
                 });
             }
-        }
-
-        async function finishQuiz() {
-            if (recordCount >= 999) {
-                const resultMessage = document.createElement('div');
-                resultMessage.className = 'card';
-                resultMessage.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; background: var(--error-color); color: white; padding: 20px; border-radius: 12px; max-width: 500px;';
-                resultMessage.innerHTML = '<p class="arabic-text" style="font-size: 18px; text-align: center;">⚠️ تم الوصول إلى الحد الأقصى من 999 نتيجة. يرجى حذف بعض النتائج السابقة أولاً.</p>';
-                document.body.appendChild(resultMessage);
-                setTimeout(() => resultMessage.remove(), 5000);
-                
-                currentView = 'result';
-                renderCurrentView();
-                return;
-            }
-
-            const config = getConfig();
-            const resultData = {
-                lecture_id: currentLecture.id,
-                student_name: config.student_name || defaultConfig.student_name,
-                score: score,
-                total_questions: currentLecture.questions.length,
-                completed_at: new Date().toISOString(),
-                answers: JSON.stringify(answers)
-            };
-            
-            const createResult = await window.dataSdk.create(resultData);
-            
-            if (!createResult.isOk) {
-                console.error("Failed to save quiz result");
-            }
-            
-            currentView = 'result';
-            renderCurrentView();
         }
 
         function resetQuiz() {
@@ -1959,7 +1907,6 @@
             currentQuestionIndex = 0;
             score = 0;
             answers = [];
-            showingTranslation = {};
         }
 
         function createConfetti() {
@@ -1980,7 +1927,7 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', initializeApp);
+        window.addEventListener('load', initializeApp);
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a940f9c46ead0e2',t:'MTc2NDk0MzEzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a943cb1e7d626ad',t:'MTc2NDk0NDk4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
