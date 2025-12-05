@@ -1,0 +1,1714 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة QDU للاختبار التفاعلي</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        .arabic-text {
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        .english-text {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .light-mode {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --border-color: #e2e8f0;
+            --medical-blue: #2563eb;
+            --medical-blue-hover: #1d4ed8;
+            --tech-gray: #64748b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --gold-color: #fbbf24;
+        }
+        
+        .dark-mode {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+            --medical-blue: #3b82f6;
+            --medical-blue-hover: #2563eb;
+            --tech-gray: #94a3b8;
+            --success-color: #22c55e;
+            --error-color: #f87171;
+            --warning-color: #fbbf24;
+            --gold-color: #fde047;
+        }
+        
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            width: 100%;
+            min-height: 100%;
+        }
+        
+        .app-container {
+            width: 100%;
+            min-height: 100%;
+            background: var(--bg-primary);
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, var(--medical-blue) 0%, #1e40af 100%);
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .lecture-card {
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lecture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--medical-blue), #06b6d4);
+        }
+        
+        .btn-primary {
+            background: var(--medical-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background: var(--medical-blue-hover);
+            transform: scale(1.05);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+        
+        .option-button {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 16px;
+        }
+        
+        .option-button:hover {
+            border-color: var(--medical-blue);
+            background: var(--medical-blue);
+            color: white;
+            transform: translateX(-4px);
+        }
+        
+        .option-button.correct {
+            border-color: var(--success-color);
+            background: var(--success-color);
+            color: white;
+        }
+        
+        .option-button.incorrect {
+            border-color: var(--error-color);
+            background: var(--error-color);
+            color: white;
+        }
+        
+        .option-button:disabled {
+            cursor: not-allowed;
+        }
+        
+        .translate-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--medical-blue);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 12px;
+        }
+        
+        .translate-icon:hover {
+            transform: scale(1.1);
+            background: var(--medical-blue-hover);
+        }
+        
+        .translation-box {
+            background: rgba(37, 99, 235, 0.1);
+            border-right: 4px solid var(--medical-blue);
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .feedback-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-right: 4px solid var(--error-color);
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            animation: slideDown 0.3s ease;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--medical-blue), #06b6d4);
+            transition: width 0.5s ease;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--gold-color);
+            position: absolute;
+            animation: confetti-fall 3s linear;
+        }
+        
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .fullscreen-toggle {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fullscreen-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .result-excellent {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+        }
+        
+        .result-good {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .result-fail {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+        
+        .icon-medical {
+            display: inline-block;
+            margin-left: 8px;
+        }
+        
+        .loading-spinner {
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--medical-blue);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .stat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 20px;
+            color: var(--medical-blue);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                padding: 16px;
+            }
+            
+            .option-button {
+                padding: 12px;
+                font-size: 14px;
+            }
+            
+            .theme-toggle, .fullscreen-toggle {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        .next-button {
+            background: var(--medical-blue);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .next-button:hover {
+            background: var(--medical-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="light-mode" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
+  <div class="app-container"><button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الليلي">
+    <svg id="sunIcon" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle> <line x1="12" y1="1" x2="12" y2="3"></line> <line x1="12" y1="21" x2="12" y2="23"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line> <line x1="1" y1="12" x2="3" y2="12"></line> <line x1="21" y1="12" x2="23" y2="12"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg id="moonIcon" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg></button> <button class="fullscreen-toggle" id="fullscreenToggle" aria-label="وضع ملء الشاشة">
+    <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+    </svg></button>
+   <div id="mainContent"></div>
+  </div>
+  <script>
+        const defaultConfig = {
+            platform_title: "منصة QDU للاختبار التفاعلي",
+            subject_name: "مادة التصوير الشعاعي",
+            student_name: "مقتدى الكناني",
+            primary_color: "#2563eb",
+            secondary_color: "#ffffff",
+            text_color: "#1a202c",
+            accent_color: "#10b981",
+            background_color: "#f0f4f8"
+        };
+
+        const lectures = [
+            {
+                id: "pelvis",
+                title: "The Pelvis",
+                titleAr: "الحوض",
+                questionsCount: 62,
+                icon: "🦴",
+                questions: [
+                    {
+                        id: 1,
+                        question: "What is the correct patient position for an AP pelvis projection?",
+                        questionAr: "ما هو وضع المريض الصحيح لإسقاط AP للحوض؟",
+                        type: "multiple",
+                        options: ["Upright", "Lateral decubitus", "Supine", "Prone"],
+                        correct: 2,
+                        explanation: "الوضع الصحيح هو الاستلقاء على الظهر (Supine) لإجراء تصوير AP للحوض."
+                    },
+                    {
+                        id: 2,
+                        question: "How should the feet be rotated for a standard AP pelvis?",
+                        questionAr: "كيف يجب تدوير القدمين لتصوير AP قياسي للحوض؟",
+                        type: "multiple",
+                        options: ["Internally 30 degrees", "Internally 15 degrees", "No rotation", "Externally 15 degrees"],
+                        correct: 1,
+                        explanation: "يجب تدوير القدمين داخلياً بمقدار 15 درجة للحصول على صورة AP قياسية للحوض."
+                    },
+                    {
+                        id: 3,
+                        question: "What is the direction of the central ray for an AP pelvis projection?",
+                        questionAr: "ما هو اتجاه الشعاع المركزي لإسقاط AP للحوض؟",
+                        type: "multiple",
+                        options: ["Perpendicular", "15 degrees cephalic", "45 degrees cephalic", "30 degrees caudal"],
+                        correct: 0,
+                        explanation: "الشعاع المركزي يجب أن يكون عمودياً (Perpendicular) على الفيلم في تصوير AP للحوض."
+                    },
+                    {
+                        id: 4,
+                        question: "What kilovoltage peak (kVp) is specified for the AP pelvis technical factors?",
+                        questionAr: "ما هو الكيلوفولت المحدد للعوامل التقنية لتصوير AP للحوض؟",
+                        type: "multiple",
+                        options: ["70 kVp", "90 kVp", "80 kVp", "100 kVp"],
+                        correct: 2,
+                        explanation: "الكيلوفولت المحدد هو 80 kVp للحصول على تباين مناسب في صورة الحوض."
+                    },
+                    {
+                        id: 5,
+                        question: "What mAs is recommended for the AP pelvis in the provided technique?",
+                        questionAr: "ما هو mAs الموصى به لتصوير AP للحوض؟",
+                        type: "multiple",
+                        options: ["10 mAs", "50 mAs", "40 mAs", "25 mAs"],
+                        correct: 3,
+                        explanation: "القيمة الموصى بها هي 25 mAs للحصول على كثافة مناسبة في صورة الحوض."
+                    },
+                    {
+                        id: 6,
+                        question: "What is the specified focus-to-film distance (FFD) for the AP pelvis?",
+                        questionAr: "ما هي المسافة المحددة من البؤرة إلى الفيلم لتصوير AP للحوض؟",
+                        type: "multiple",
+                        options: ["90 cm", "120 cm", "110 cm", "100 cm"],
+                        correct: 3,
+                        explanation: "المسافة القياسية المحددة هي 100 سم من البؤرة إلى الفيلم."
+                    },
+                    {
+                        id: 7,
+                        question: "What cassette size is indicated for the AP pelvis in the instructions?",
+                        questionAr: "ما هو حجم الكا��يت ال��حدد لتصوير AP للحوض؟",
+                        type: "multiple",
+                        options: ["43 x 35 cm", "24 x 30 cm", "18 x 24 cm", "35 x 43 cm"],
+                        correct: 3,
+                        explanation: "حجم الكاسيت المحدد هو 35 × 43 سم لتغطية منطقة الحوض بالكامل."
+                    },
+                    {
+                        id: 8,
+                        question: "Where should the central ray be centered for the AP axial sacroiliac joint?",
+                        questionAr: "أين يجب توجيه الشعاع المركزي لتصوير AP المحوري للمفصل العجزي الحرقفي؟",
+                        type: "multiple",
+                        options: ["At the level of the umbilicus", "At the symphysis pubis", "At the ASIS level", "2 inches below the level of the anterior superior iliac spines (ASIS)"],
+                        correct: 3,
+                        explanation: "يجب توجيه الشعاع المركزي إلى 2 بوصة تحت مستوى الشوكة الحرقفية الأمامية العلوية (ASIS)."
+                    },
+                    {
+                        id: 9,
+                        question: "In the AP Pelvis position, how should the patient's feet be positioned?",
+                        questionAr: "في وضع AP للحوض، كيف يجب وضع قدمي المريض؟",
+                        type: "multiple",
+                        options: ["Feet pointed straight ahead", "Feet rotated externally 15 degrees", "Feet rotated internally 15 degrees", "Feet crossed"],
+                        correct: 2,
+                        explanation: "يجب تدوير القدمين داخلياً بمقدار 15 درجة للحصول على أفضل صورة للحوض."
+                    },
+                    {
+                        id: 10,
+                        question: "What is the patient's position for an AP Pelvis X-ray?",
+                        questionAr: "ما هو وضع المريض لأشعة AP للحوض؟",
+                        type: "multiple",
+                        options: ["Prone", "Supine", "Standing", "Lateral"],
+                        correct: 1,
+                        explanation: "وضع المريض الصحيح هو الاستلقاء على الظهر (Supine)."
+                    },
+                    {
+                        id: 11,
+                        question: "What is the center point for the central ray in an AP Pelvis X-ray?",
+                        questionAr: "ما هي نقطة المركز للشعاع المركزي في أشعة AP للحوض؟",
+                        type: "multiple",
+                        options: ["At the level of the iliac crest", "Midway between anterior superior iliac spine and symphysis pubis", "At the pubic symphysis only", "At the sacral promontory"],
+                        correct: 1,
+                        explanation: "نقطة المركز هي في منتصف المسافة بين الشوكة الحرقفية الأمامية العلوية والارتفاق العاني."
+                    },
+                    {
+                        id: 12,
+                        question: "For the AP Axial Sacroiliac joint, what is the angle of the central ray?",
+                        questionAr: "بالنسبة للمفصل العجزي الحرقفي AP المحوري، ما هي زاوية الشعاع المركزي؟",
+                        type: "multiple",
+                        options: ["15-30 degrees caudal", "30-45 degrees cephalic", "Perpendicular", "10 degrees oblique"],
+                        correct: 0,
+                        explanation: "��اوية الشعاع المركزي يجب أن تكون 15-30 درجة باتجاه القدمين (caudal)."
+                    },
+                    {
+                        id: 13,
+                        question: "Where is the central ray centered for the AP Axial Sacroiliac joint?",
+                        questionAr: "أين يتم توجيه الشعاع المركزي للمفصل العجزي الحرقفي AP المحوري؟",
+                        type: "multiple",
+                        options: ["2 inches above anterior superior iliac spines", "At the level of the pubic symphysis", "2 inches below anterior superior iliac spines", "At the sacrum"],
+                        correct: 2,
+                        explanation: "يتم توجيه الشعاع المركزي إلى 2 بوصة تحت الشوكة الحرقفية الأمامية العلوية."
+                    },
+                    {
+                        id: 14,
+                        question: "What is the patient's position during the AP Axial Sacroiliac joint projection?",
+                        questionAr: "ما هو وضع المريض أثناء إسقاط AP المحوري للمفصل العجزي الحرقفي؟",
+                        type: "multiple",
+                        options: ["Standing with legs flexed", "Supine with legs fully extended", "Prone with knees bent", "Lateral recumbent"],
+                        correct: 1,
+                        explanation: "يجب أن يكون المريض مستلقياً على ظهره مع الساقين ممدودتين بالكامل."
+                    },
+                    {
+                        id: 15,
+                        question: "Is a grid used during the AP Pelvis X-ray?",
+                        questionAr: "هل يتم استخدام الشبكة أثناء أشعة AP للحوض؟",
+                        type: "multiple",
+                        options: ["Yes", "No", "Only for children", "Only for lateral views"],
+                        correct: 0,
+                        explanation: "نعم، يتم استخدام الشبكة لتقليل التشتت وتحسين جودة الصورة."
+                    },
+                    {
+                        id: 16,
+                        question: "What should be done to the legs during the AP Axial Sacroiliac joint position?",
+                        questionAr: "ماذا يجب فعله بالساقين أثناء وضع AP المحوري للمفصل العجزي الحرقفي؟",
+                        type: "multiple",
+                        options: ["Flexed at the knees", "Fully extended", "Internally rotated 15 degrees", "Crossed at ankles"],
+                        correct: 1,
+                        explanation: "يجب أن تك��ن الساقان ممدودتين بالكامل للحصول على أفضل صورة."
+                    },
+                    {
+                        id: 17,
+                        question: "Which anatomical landmarks determine the central ray center point for the AP Pelvis projection?",
+                        questionAr: "ما هي العلامات التشريحية التي تحدد ��قطة مركز الشعاع المركزي لإسقاط AP للحوض؟",
+                        type: "multiple",
+                        options: ["Midway between anterior superior iliac spine and greater trochanter", "Midway between anterior superior iliac spine and symphysis pubis", "At the level of the iliac crest", "At the midpoint of the sacroiliac joint"],
+                        correct: 1,
+                        explanation: "العلامات هي في منتصف المسافة بين الشوكة الحرقفية الأمامية العلوية والارتفاق العاني."
+                    },
+                    {
+                        id: 18,
+                        question: "How is the patient positioned for the AP Axial Sacroiliac joint projection?",
+                        questionAr: "كيف يتم وضع المريض لإسقاط AP المحوري للمفصل العجزي الحرقفي؟",
+                        type: "multiple",
+                        options: ["Prone with knees flexed", "Supine with legs fully extended", "Supine with knees flexed and feet flat", "Erect with weight-bearing on one leg"],
+                        correct: 1,
+                        explanation: "يكون المريض مستلقياً على الظهر مع الساقين ممدودتين بالكامل."
+                    },
+                    {
+                        id: 19,
+                        question: "Which of the following technical factors is used for the AP Pelvis projection?",
+                        questionAr: "أي من العوامل التقنية التالية يستخدم لإسقاط AP للحوض؟",
+                        type: "multiple",
+                        options: ["70 kVp and 15 mAs", "80 kVp and 25 mAs", "90 kVp and 10 mAs", "60 kVp and 30 mAs"],
+                        correct: 1,
+                        explanation: "العوامل التقنية المستخدمة هي 80 kVp و 25 mAs."
+                    },
+                    {
+                        id: 20,
+                        question: "Where is the central ray centered for the AP Axial Sacroiliac joint projection?",
+                        questionAr: "أين يتم توجيه الشعاع المركزي لإسقاط AP المحوري للمفصل العجزي الحرقفي؟",
+                        type: "multiple",
+                        options: ["Level of anterior superior iliac spines", "2 inches above anterior superior iliac spines", "2 inches below anterior superior iliac spines", "At the symphysis pubis"],
+                        correct: 2,
+                        explanation: "يتم توجيه الشعاع المركزي إلى 2 بوصة تحت مستوى الشوكة الحرقفية الأمامية العلوية."
+                    },
+                    {
+                        id: 21,
+                        question: "In the AP Pelvis technique, how should the legs and feet be positioned?",
+                        questionAr: "في تقنية AP للحوض، كيف يجب وضع الساقين والقدمين؟",
+                        type: "multiple",
+                        options: ["Legs together with feet dorsiflexed", "Legs separate and feet rotated internally 15 degrees", "Legs flexed and feet externally rotated", "Legs elevated on a sponge block"],
+                        correct: 1,
+                        explanation: "يجب أن تكون الساقان منفصلتين والقدمان مدورتان داخلياً بمقدار 15 درجة."
+                    },
+                    {
+                        id: 22,
+                        question: "The Central Ray for the AP Pelvis projection is directed:",
+                        questionAr: "الشعاع المركزي لإسقاط AP للحوض يتم توجيهه:",
+                        type: "multiple",
+                        options: ["30° cephalic", "45° caudal", "Perpendicular", "Horizontal lateral"],
+                        correct: 2,
+                        explanation: "يتم توجيه الشعاع المركزي بشكل عمودي (Perpendicular) على الفيلم."
+                    },
+                    {
+                        id: 23,
+                        question: "For AP Pelvis imaging, which focus option may be selected?",
+                        questionAr: "لتصوير AP للحوض، أي خيار بؤرة يمكن اختياره؟",
+                        type: "multiple",
+                        options: ["Only broad focus", "Only fine focus", "Broad or fine focus", "No focal spot selection is needed"],
+                        correct: 2,
+                        explanation: "يمكن اختيار البؤرة العريضة أو الدقيقة (Broad or fine focus) حسب الحاجة."
+                    },
+                    {
+                        id: 24,
+                        question: "In the AP Axial Sacroiliac Joint, the patient should be positioned:",
+                        questionAr: "في المفصل العجزي الحرقفي AP المحوري، يجب أن يكون وضع المريض:",
+                        type: "multiple",
+                        options: ["Prone with knees bent", "Supine with legs fully extended", "Lateral with hip flexed", "Seated upright"],
+                        correct: 1,
+                        explanation: "يجب أن يكون المريض مستلقياً على الظهر مع الساقين ممدودتين بالكامل."
+                    },
+                    {
+                        id: 25,
+                        question: "To ensure the pelvis is not rotated during an AP projection, the radiographer must:",
+                        questionAr: "للتأكد من عدم دوران الحوض أثناء إسقاط AP، يجب على أخصائي الأشعة:",
+                        type: "multiple",
+                        options: ["Flex the knees by 90 degrees", "Place sandbags under the buttocks", "Align the medial sagittal plane to the center line of the Table", "Elevate the head of the patient"],
+                        correct: 2,
+                        explanation: "يجب محاذاة المستوى السهمي الناصف مع الخط المركزي للطاولة."
+                    },
+                    {
+                        id: 26,
+                        question: "What is the specified mAs (milliampere-seconds) value to be used for the AP Pelvis?",
+                        questionAr: "ما هي قيمة mAs المحددة للاستخدام في تصوير AP للحوض؟",
+                        type: "multiple",
+                        options: ["15", "20", "25", "30"],
+                        correct: 2,
+                        explanation: "قيمة mAs المحددة هي 25 للحصول على كثافة صورة مناسبة."
+                    },
+                    {
+                        id: 27,
+                        question: "Which technical factor is necessary to absorb scatter radiation and improve image contrast in the AP Pelvis projection?",
+                        questionAr: "ما هو العامل التقني الضروري لامتصاص الإشعاع المتناثر وتحسين تباين الصورة؟",
+                        type: "multiple",
+                        options: ["High kVp", "Fine focus", "Grid: Yes", "Low mAs"],
+                        correct: 2,
+                        explanation: "استخدام الشبكة (Grid) ضروري لامتصاص الإشعاع المتناثر وتحسين التباين."
+                    },
+                    {
+                        id: 28,
+                        question: "What is the required degree of elevation for the side of interest in an Oblique Sacroiliac joint projection, measured from the table?",
+                        questionAr: "ما هي درجة الرفع المطلوبة للجانب المراد فحصه في إسقاط المفصل العجزي الحرقفي المائل؟",
+                        type: "multiple",
+                        options: ["15 degrees", "45 degrees", "40-50 degrees", "25-30 degrees"],
+                        correct: 3,
+                        explanation: "درجة الرفع المطلوبة هي 25-30 درجة من الطاولة."
+                    },
+                    {
+                        id: 29,
+                        question: "For the Posterior oblique pelvis - acetabulum projection, the Central Ray (CR) is directed in what manner?",
+                        questionAr: "لإسقاط الحوض المائل الخلفي - الحُق، يتم توجيه الشعاع المركزي بأي طريقة؟",
+                        type: "multiple",
+                        options: ["15 degrees caudal", "30 degrees cephalic", "Perpendicular", "Tangential to the joint"],
+                        correct: 2,
+                        explanation: "يتم توجيه الشعاع المركزي بشكل عمودي (Perpendicular) على الفيلم."
+                    },
+                    {
+                        id: 30,
+                        question: "What is the specific Center Point for the Posterior oblique pelvis - acetabulum projection?",
+                        questionAr: "ما هي نقطة المركز المحددة لإسقاط الحوض المائل الخلفي - الحُق؟",
+                        type: "multiple",
+                        options: ["Midway between the ASIS and symphysis pubis", "2 inches distal and 2 inches medial to the ASIS", "At the level of the femoral pulse", "1 inch above the iliac crest"],
+                        correct: 1,
+                        explanation: "نقطة المركز هي 2 بوصة أسفل و 2 بوصة داخل الشوكة الحرقفية الأمامية العلوية."
+                    },
+                    {
+                        id: 31,
+                        question: "What is the patient's general body position for the Frog position projection?",
+                        questionAr: "ما هو وضع جسم المريض العام لإسقاط وضعية الضفدع؟",
+                        type: "multiple",
+                        options: ["Prone", "Erect, leaning back", "Lateral recumbent", "Supine"],
+                        correct: 3,
+                        explanation: "وضع المريض العام هو الاستلقاء على الظهر (Supine)."
+                    },
+                    {
+                        id: 32,
+                        question: "Which of the following describes the required limbs rotation for the Frog position projection?",
+                        questionAr: "أي من التالي يصف دوران الأطراف المطلوب لإسقاط وضعية الضفدع؟",
+                        type: "multiple",
+                        options: ["Both limbs internally rotated 15 degrees", "Both limbs laterally rotated through approximately 60 degrees", "The limb of interest is rotated 30 degrees externally", "Feet are kept parallel and touching"],
+                        correct: 1,
+                        explanation: "يتم تدوير كلا الطرفين جانبياً بحوالي 60 درجة."
+                    },
+                    {
+                        id: 33,
+                        question: "For the Frog position, which joints are required to be flexed as part of the part positioning instructions?",
+                        questionAr: "لوضعية الضفدع، أي مفاصل يجب ثنيها كجزء من تعليمات الوضع؟",
+                        type: "multiple",
+                        options: ["Ankles and hips", "Hips and knees", "Spine and neck", "Elbows and shoulders"],
+                        correct: 1,
+                        explanation: "يجب ثني مفاصل الورك والركبة (Hips and knees)."
+                    },
+                    {
+                        id: 34,
+                        question: "The Center Point for the Frog position is located in the midline at the level of which anatomical feature?",
+                        questionAr: "نقطة المركز لوضعية الضفدع تقع في الخط الناصف عند مستوى أي معلم تشريحي؟",
+                        type: "multiple",
+                        options: ["The symphysis pubis", "The Anterior Superior Iliac Spine (ASIS)", "The femoral pulse", "The greater trochanters"],
+                        correct: 2,
+                        explanation: "تقع نقطة المركز عند مستوى نبض الفخذ (femoral pulse)."
+                    },
+                    {
+                        id: 35,
+                        question: "Which of the following views requires the patient to be supine and the side of interest to be elevated 25-30 degrees from the table?",
+                        questionAr: "أي من الإسقاطات يتطلب أن يكون المريض مستلقياً والجانب المراد فحصه مرفوعاً 25-30 درجة؟",
+                        type: "multiple",
+                        options: ["AP Axial Sacroiliac joint", "Posterior oblique pelvis - acetabulum", "Oblique Sacroiliac joint", "Frog position"],
+                        correct: 2,
+                        explanation: "إسقاط المفصل العجزي الحرقفي المائل (Oblique Sacroiliac joint) يتطلب هذا الوضع."
+                    },
+                    {
+                        id: 36,
+                        question: "In the Oblique Sacroiliac Joint projection, the side of interest must be:",
+                        questionAr: "في إسقاط المفصل العجزي الحرقفي المائل، يجب أن يكون الجانب المراد فحصه:",
+                        type: "multiple",
+                        options: ["Elevated 10-15 degrees from the table", "Elevated and supported 25-30 degrees from the table", "Resting directly on the table surface", "Rotated internally 45 degrees"],
+                        correct: 1,
+                        explanation: "يجب رفع ودعم الجانب المراد فحصه بمقدار 25-30 درجة من الطاولة."
+                    },
+                    {
+                        id: 37,
+                        question: "For the Oblique SI Joint view, the patient should be positioned:",
+                        questionAr: "لإسقاط المفصل العجزي الحرقفي المائل، يجب أن يكون وضع المريض:",
+                        type: "multiple",
+                        options: ["Prone with knees flexed", "Lateral with hip extension", "Supine with the side of interest elevated", "Sitting upright with back straight"],
+                        correct: 2,
+                        explanation: "يجب أن يكون المريض مستلقياً على الظهر مع رفع الجانب المراد فحصه."
+                    },
+                    {
+                        id: 38,
+                        question: "In the Posterior Oblique Pelvis – Acetabulum projection, the Central Ray is directed:",
+                        questionAr: "في إسقاط الحوض المائل الخلفي - الحُق، يتم توجيه الشعاع المركزي:",
+                        type: "multiple",
+                        options: ["30° cephalic", "45° caudal", "Horizontally", "Perpendicular"],
+                        correct: 3,
+                        explanation: "يتم توجيه الشعاع المركزي بشكل عمودي (Perpendicular) على الفيلم."
+                    },
+                    {
+                        id: 39,
+                        question: "The Center Point for the Posterior Oblique Pelvis is located:",
+                        questionAr: "نقطة المركز لإسقاط الحوض المائل الخلفي تقع:",
+                        type: "multiple",
+                        options: ["2 inches distal and 2 inches medial to the ASIS", "Midway between iliac crests", "At the level of symphysis pubis", "At the midpoint of the sacrum"],
+                        correct: 0,
+                        explanation: "نقطة المركز هي 2 بوصة أسفل و 2 بوصة داخل الشوكة الحرقفية الأمامية العلوية."
+                    },
+                    {
+                        id: 40,
+                        question: "In the frog position, the patient must lie:",
+                        questionAr: "في وضعية الضفدع، يجب أن يستلقي المريض:",
+                        type: "multiple",
+                        options: ["Prone with arms elevated", "Supine on the table", "Standing with weight bearing", "Seated with legs crossed"],
+                        correct: 1,
+                        explanation: "يجب أن يستلقي المريض على ظهره على الطاولة (Supine)."
+                    },
+                    {
+                        id: 41,
+                        question: "For the frog-leg position, the hips and knees should be:",
+                        questionAr: "لوضعية الضفدع، يجب أن تكون الوركين والركبتين:",
+                        type: "multiple",
+                        options: ["Fully extended with no rotation", "Flexed with limbs rotated laterally about 60°", "Flexed and rotated medially 90°", "Extended and abducted 20°"],
+                        correct: 1,
+                        explanation: "يجب ثني الوركين والركبتين مع تدوير الأطراف جانبياً بحوالي 60 درجة."
+                    },
+                    {
+                        id: 42,
+                        question: "The Central Ray for the frog position is:",
+                        questionAr: "الشعاع المركزي لوضعية الضفدع:",
+                        type: "multiple",
+                        options: ["Angled 10° cephalic", "Angled 15° caudal", "Horizontal", "Perpendicular"],
+                        correct: 3,
+                        explanation: "يجب أن يكون الشعاع المركزي عمودياً (Perpendicular) على الفيلم."
+                    },
+                    {
+                        id: 43,
+                        question: "The Center Point for the frog position is:",
+                        questionAr: "نقطة المركز لوضعية الضفدع:",
+                        type: "multiple",
+                        options: ["1 inch superior to the ASIS", "At the midpoint of the pubic arch", "In the midline at the level of the femoral pulse", "Two inches lateral to the femoral neck"],
+                        correct: 2,
+                        explanation: "نقطة المركز في الخط الناصف عند مستوى نبض الفخذ."
+                    },
+                    {
+                        id: 44,
+                        question: "Which patient position is used for the oblique sacroiliac (SI) joint projection?",
+                        questionAr: "ما هو وضع المريض المستخدم لإسقاط المفصل العجزي الحرقفي الما��ل؟",
+                        type: "multiple",
+                        options: ["Upright", "Lateral decubitus", "Supine", "Prone"],
+                        correct: 2,
+                        explanation: "يكون المريض مستلقياً على الظهر (Supine) لإسقاط المفصل العجزي الحرقفي المائل."
+                    },
+                    {
+                        id: 45,
+                        question: "For the oblique sacroiliac joint, how many degrees should the side of interest be elevated from the table?",
+                        questionAr: "للمفصل العجزي الحرقفي المائل، كم درجة يجب رفع الجانب المراد فحصه من الطاولة؟",
+                        type: "multiple",
+                        options: ["60–70 degrees", "45–50 degrees", "10–15 degrees", "25–30 degrees"],
+                        correct: 3,
+                        explanation: "يجب ر��ع الجانب المراد فحصه بمقدار 25-30 درجة من الطاولة."
+                    },
+                    {
+                        id: 46,
+                        question: "The central ray for the posterior oblique pelvis (acetabulum) projection is directed:",
+                        questionAr: "الشعاع المركزي لإسقاط الحوض المائل الخلفي (الحُق) يتم توجيهه:",
+                        type: "multiple",
+                        options: ["15 degrees caudad", "15 degrees cephalad", "20 degrees cephalad", "Perpendicular"],
+                        correct: 3,
+                        explanation: "يتم توجيه الشعاع المركزي بشكل عمودي (Perpendicular)."
+                    },
+                    {
+                        id: 47,
+                        question: "Where is the center point located for the posterior oblique pelvis (acetabulum) projection?",
+                        questionAr: "أين تقع نقطة المركز لإسقاط الحوض المائل الخلفي (الحُق)؟",
+                        type: "multiple",
+                        options: ["At the symphysis pubis", "2 inches distal and 2 inches medial to the ASIS", "2 inches lateral and 2 inches superior to the ASIS", "1 inch distal and 3 inches medial to the ASIS"],
+                        correct: 1,
+                        explanation: "نقطة المركز هي 2 بوصة أسفل و 2 بوصة داخل الشوكة الحرقفية الأمامية العلوية."
+                    },
+                    {
+                        id: 48,
+                        question: "In the frog position described, how are the hips and knees positioned?",
+                        questionAr: "في وضعية الضفدع الموصوفة، كيف يتم وضع الوركين والركبتين؟",
+                        type: "multiple",
+                        options: ["Extended and adducted", "Flexed with internal rotation approximately 30°", "Flexed with lateral (external) rotation approximately 60°", "Abducted and extended"],
+                        correct: 2,
+                        explanation: "يتم ثني الوركين والركبتين مع تدوير خارجي بحوالي 60 درجة."
+                    },
+                    {
+                        id: 49,
+                        question: "Where is the center point for the frog position centered?",
+                        questionAr: "أين تتمركز نقطة المركز لوضعية الضفدع؟",
+                        type: "multiple",
+                        options: ["Centered in the midline at the level of the femoral pulse", "At the pubic symphysis", "At the level of the iliac crest", "2 inches medial to the ASIS"],
+                        correct: 0,
+                        explanation: "تتمركز نقطة المركز في الخط الناصف عند مستوى نبض الفخذ."
+                    },
+                    {
+                        id: 50,
+                        question: "Which projection from the context specifically requires elevating and supporting the side of interest?",
+                        questionAr: "أي إسقاط يتطلب بشكل خاص رفع ودعم الجانب المراد فحصه؟",
+                        type: "multiple",
+                        options: ["Frog position", "Oblique sacroiliac joint", "Posterior oblique pelvis (acetabulum)", "AP pelvis"],
+                        correct: 1,
+                        explanation: "إسقاط المفصل العجزي الحرقفي المائل يتطلب رفع ودعم الجانب المراد فحصه."
+                    },
+                    {
+                        id: 51,
+                        question: "The context gives '2 inches (5 cm)'. Approximately how many centimeters are 2 inches?",
+                        questionAr: "يشير السياق إلى '2 بوصة (5 سم)'. كم سنتيمتر تقريباً هي 2 بوصة؟",
+                        type: "multiple",
+                        options: ["5 cm", "2.5 cm", "1 cm", "7 cm"],
+                        correct: 0,
+                        explanation: "2 بوصة تساوي تقريباً 5 سنتيمتر."
+                    },
+                    {
+                        id: 52,
+                        question: "In the oblique sacroiliac joint position, how is the patient positioned?",
+                        questionAr: "في وضع المفصل العجزي الحرقفي المائل، كيف يتم وضع المريض؟",
+                        type: "multiple",
+                        options: ["Prone", "Supine", "Standing", "Sitting"],
+                        correct: 1,
+                        explanation: "يتم وضع المريض مستلقياً على الظهر (Supine)."
+                    },
+                    {
+                        id: 53,
+                        question: "Where is the central ray centered for the posterior oblique pelvis - acetabulum?",
+                        questionAr: "أين يتم توجيه الشعاع المركزي لإسقاط الحوض المائل الخلفي - الحُق؟",
+                        type: "multiple",
+                        options: ["3 inches distal and 3 inches lateral to ASIS", "At the level of the femoral pulse", "2 inches distal and 2 inches medial to ASIS", "At the umbilicus"],
+                        correct: 2,
+                        explanation: "يتم توجيه الشعاع إلى 2 بوصة أسفل و 2 بوصة داخل الشوكة الحرقفية الأمامية العلوية."
+                    },
+                    {
+                        id: 54,
+                        question: "In the frog position, how are the hips and knees positioned?",
+                        questionAr: "في وضعية الضفدع، كيف يتم وضع الوركين والركبتين؟",
+                        type: "multiple",
+                        options: ["Extended and medially rotated", "Flexed and laterally rotated about 60 degrees", "Flexed and medially rotated about 30 degrees", "Extended and laterally rotated"],
+                        correct: 1,
+                        explanation: "يتم ثني الوركين والركبتين مع تدوير جانبي بحوالي 60 درجة."
+                    },
+                    {
+                        id: 55,
+                        question: "What is the patient's position during the frog position?",
+                        questionAr: "ما هو وضع المريض أثناء وضعية الضفدع؟",
+                        type: "multiple",
+                        options: ["Prone", "Standing", "Supine", "Sitting"],
+                        correct: 2,
+                        explanation: "يكون المريض مستلقياً على الظهر (Supine) في وضعية الضفدع."
+                    },
+                    {
+                        id: 56,
+                        question: "Which position requires the side of interest to be elevated and supported?",
+                        questionAr: "أي وضع يتطلب رفع ودعم الجانب المراد فحصه؟",
+                        type: "multiple",
+                        options: ["Frog position", "Posterior oblique pelvis", "Oblique sacroiliac joint", "AP pelvis"],
+                        correct: 2,
+                        explanation: "وضع المفصل العجزي الحرقفي المائل يتطلب رفع ودعم الجانب المراد فحصه."
+                    },
+                    {
+                        id: 57,
+                        question: "In the posterior oblique pelvis position, the central ray is centered ___ to the ASIS.",
+                        questionAr: "في وضع الحوض المائل الخلفي، يتم توجيه الشعاع المركزي ___ إلى ASIS.",
+                        type: "multiple",
+                        options: ["2 inches lateral and 2 inches distal", "2 inches proximal and 2 inches medial", "2 inches distal and 2 inches medial", "2 inches lateral and 2 inches proximal"],
+                        correct: 2,
+                        explanation: "في وضع الحوض المائل الخلفي، يتم توجيه الشعاع المركزي 2 بوصة أسفل و 2 بوصة داخل الشوكة الحرقفية الأمامية العلوية (ASIS)."
+                    },
+                    {
+                        id: 58,
+                        question: "In the oblique sacroiliac joint position, how is the patient positioned?",
+                        questionAr: "في وضع المفصل العجزي الحرقفي المائل، كيف يتم وضع المريض؟",
+                        type: "multiple",
+                        options: ["Prone with the side of interest elevated 15-20 degrees", "Supine with the side of interest elevated 25-30 degrees", "Supine with legs extended flat on the table", "Lateral recumbent with the side of interest down"],
+                        correct: 1,
+                        explanation: "المريض ��كون مستلقياً على الظهر مع رفع الجانب المراد فحصه بمقدار 25-30 درجة."
+                    },
+                    {
+                        id: 59,
+                        question: "In the frog position, what is the approximate degree of lateral rotation applied to the hips and knees?",
+                        questionAr: "في وضعية الضفدع، ما هي درجة التدوير الجانبي المطبقة تقريباً على الوركين والركبتين؟",
+                        type: "multiple",
+                        options: ["30 degrees", "45 degrees", "60 degrees", "90 degrees"],
+                        correct: 2,
+                        explanation: "يتم تطبيق تدوير جانبي بحوالي 60 درجة على الوركين والركبتين في وضعية الضفدع."
+                    },
+                    {
+                        id: 60,
+                        question: "For the oblique sacroiliac joint projection, how much should the side of interest be elevated?",
+                        questionAr: "لإسقاط المفصل العجزي الحرقفي المائل، كم يجب رفع الجانب المراد فحصه؟",
+                        type: "multiple",
+                        options: ["10-15 degrees", "20-25 degrees", "25-30 degrees", "35-40 degrees"],
+                        correct: 2,
+                        explanation: "يجب رفع الجانب المراد فحصه بمقدار 25-30 درجة لإسقاط المفصل العجزي الحرقفي المائل."
+                    },
+                    {
+                        id: 61,
+                        question: "In the posterior oblique pelvis - acetabulum projection, what anatomical landmark is used for centering?",
+                        questionAr: "في إسقاط الحوض المائل الخلفي - الحُق، ما هو المعلم التشريحي المستخ��م للمركزية؟",
+                        type: "multiple",
+                        options: ["Femoral head", "Greater trochanter", "ASIS", "Pubic symphysis"],
+                        correct: 2,
+                        explanation: "الشوكة الحرقفية الأمامية العلوية (ASIS) هي المعلم التشريحي المستخدم للمركزية، حيث يتم التوجيه 2 بوصة أسفل و 2 بوصة داخل منها."
+                    },
+                    {
+                        id: 62,
+                        question: "For the frog position, where is the central ray centered?",
+                        questionAr: "لوضعية الضفدع، أين يتم توجيه الشعاع المركزي؟",
+                        type: "multiple",
+                        options: ["On the ASIS", "Midline at the level of the femoral pulse", "2 inches distal to the pubic symphysis", "At the knee joint"],
+                        correct: 1,
+                        explanation: "يتم توجيه الشعاع المركزي في الخط الناصف عند مستوى نبض الفخذ في وضعية الضفدع."
+                    }
+                ]
+            },
+            {
+                id: "hip",
+                title: "Hip Joint",
+                titleAr: "مفصل الورك",
+                questionsCount: 5,
+                icon: "🔗",
+                questions: [
+                    {
+                        id: 1,
+                        question: "The hip joint is what type of joint?",
+                        questionAr: "مفصل الورك من أي نوع من المفاصل؟",
+                        type: "multiple",
+                        options: ["Hinge joint", "Ball and socket joint", "Pivot joint", "Gliding joint"],
+                        correct: 1,
+                        explanation: "مفصل الورك هو مفصل كروي حُقِّي (Ball and socket) يسمح بحركة واسعة في جميع الاتجاهات."
+                    },
+                    {
+                        id: 2,
+                        question: "Which bone forms the socket of the hip joint?",
+                        questionAr: "أي عظمة تشكل الحُق في مفصل الورك؟",
+                        type: "multiple",
+                        options: ["Femur", "Tibia", "Acetabulum", "Patella"],
+                        correct: 2,
+                        explanation: "الحُق (Acetabulum) في عظم الورك يشكل التجويف الذي يستقر فيه رأس عظم الفخذ."
+                    },
+                    {
+                        id: 3,
+                        question: "Hip dislocation is a common sports injury.",
+                        questionAr: "خلع الورك إصابة شائعة في الرياضة.",
+                        type: "truefalse",
+                        correct: false,
+                        explanation: "خلع الورك نادر نسبياً ويحدث عادة في الحوادث الشديدة مثل حوادث السيارات."
+                    },
+                    {
+                        id: 4,
+                        question: "What is the most common type of hip fracture in elderly?",
+                        questionAr: "ما هو أكثر أنواع كسور الورك شيوعاً عند كبار السن؟",
+                        type: "multiple",
+                        options: ["Femoral head fracture", "Femoral neck fracture", "Acetabular fracture", "Greater trochanter fracture"],
+                        correct: 1,
+                        explanation: "كسر عنق الفخذ (Femoral neck fracture) هو الأكثر شيوعاً عند كبار السن بسبب هشاشة العظام."
+                    },
+                    {
+                        id: 5,
+                        question: "MRI is better than X-ray for soft tissue evaluation of the hip.",
+                        questionAr: "التصوير بالرنين المغناطيسي أفضل من الأشعة السينية لتقييم الأ��سجة الرخوة للورك.",
+                        type: "truefalse",
+                        correct: true,
+                        explanation: "نعم، الرنين المغناطيسي (MRI) ممت��ز لتقييم الأربطة والعضلات والغضاريف حول مفصل الورك."
+                    }
+                ]
+            },
+            {
+                id: "femur",
+                title: "The Femur",
+                titleAr: "عظم الفخذ",
+                questionsCount: 5,
+                icon: "🦴",
+                questions: [
+                    {
+                        id: 1,
+                        question: "The femur is the longest bone in the human body.",
+                        questionAr: "عظم الفخذ هو أطول عظمة في جسم الإنسان.",
+                        type: "truefalse",
+                        correct: true,
+                        explanation: "نعم، عظم الفخذ (Femur) هو أطول وأقوى عظمة في الجسم البشري."
+                    },
+                    {
+                        id: 2,
+                        question: "Which part of the femur articulates with the hip bone?",
+                        questionAr: "أي جزء من عظم الفخذ يتمفصل مع عظم الورك؟",
+                        type: "multiple",
+                        options: ["Femoral shaft", "Femoral head", "Medial condyle", "Lateral condyle"],
+                        correct: 1,
+                        explanation: "رأس الفخذ (Femoral head) هو الجزء الكروي الذي يتمفصل مع حُق الورك."
+                    },
+                    {
+                        id: 3,
+                        question: "What is the name of the bony prominence on the lateral side of the proximal femur?",
+                        questionAr: "ما اسم البروز العظمي على الجانب الخارجي من الجزء العلوي لعظم الفخذ؟",
+                        type: "multiple",
+                        options: ["Lesser trochanter", "Greater trochanter", "Femoral condyle", "Linea aspera"],
+                        correct: 1,
+                        explanation: "المدور الأكبر (Greater trochanter) هو البروز العظمي البارز على الجانب الخارجي للفخذ."
+                    },
+                    {
+                        id: 4,
+                        question: "The femur articulates with the tibia at the knee joint.",
+                        questionAr: "يتمفصل عظم الفخذ مع عظم الظنبوب عند مفصل الركبة.",
+                        type: "truefalse",
+                        correct: true,
+                        explanation: "نعم، لقمتا الفخذ (Femoral condyles) تتمفصلان مع لقمتي الظنبوب لتشكيل مفصل الركبة."
+                    },
+                    {
+                        id: 5,
+                        question: "Which radiographic projection best demonstrates the femoral shaft?",
+                        questionAr: "أي إسقاط إش��اعي يُظهر جسم عظم الفخذ بشكل أفضل؟",
+                        type: "multiple",
+                        options: ["Lateral view only", "AP view only", "Both AP and Lateral views", "Oblique view only"],
+                        correct: 2,
+                        explanation: "يجب الحصول على كل من الإسقاط الأمامي الخلفي (AP) والجانبي (Lateral) لتقييم شامل لجسم الفخذ."
+                    }
+                ]
+            }
+        ];
+
+        let currentView = 'home';
+        let currentLecture = null;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answers = [];
+        let showingTranslation = {};
+        let isDarkMode = false;
+        let recordCount = 0;
+
+        const dataHandler = {
+            onDataChanged(data) {
+                recordCount = data.length;
+            }
+        };
+
+        document.addEventListener('keydown', function(e) {
+            if (
+                (e.ctrlKey || e.metaKey) && (
+                    e.key === 'c' || e.key === 'C' ||
+                    e.key === 'x' || e.key === 'X' ||
+                    e.key === 'a' || e.key === 'A' ||
+                    e.key === 'u' || e.key === 'U' ||
+                    e.key === 's' || e.key === 'S'
+                )
+            ) {
+                e.preventDefault();
+                return false;
+            }
+            
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        async function initializeApp() {
+            const dataSdkResult = await window.dataSdk.init(dataHandler);
+            if (!dataSdkResult.isOk) {
+                console.error("Failed to initialize Data SDK");
+            }
+
+            if (window.elementSdk) {
+                window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange: async (config) => {
+                        document.documentElement.style.setProperty('--medical-blue', config.primary_color || defaultConfig.primary_color);
+                        document.documentElement.style.setProperty('--bg-secondary', config.secondary_color || defaultConfig.secondary_color);
+                        document.documentElement.style.setProperty('--text-primary', config.text_color || defaultConfig.text_color);
+                        document.documentElement.style.setProperty('--success-color', config.accent_color || defaultConfig.accent_color);
+                        document.documentElement.style.setProperty('--bg-primary', config.background_color || defaultConfig.background_color);
+                        
+                        renderCurrentView();
+                    },
+                    mapToCapabilities: (config) => ({
+                        recolorables: [
+                            {
+                                get: () => config.background_color || defaultConfig.background_color,
+                                set: (value) => {
+                                    if (window.elementSdk) {
+                                        window.elementSdk.config.background_color = value;
+                                        window.elementSdk.setConfig({ background_color: value });
+                                    }
+                                }
+                            },
+                            {
+                                get: () => config.secondary_color || defaultConfig.secondary_color,
+                                set: (value) => {
+                                    if (window.elementSdk) {
+                                        window.elementSdk.config.secondary_color = value;
+                                        window.elementSdk.setConfig({ secondary_color: value });
+                                    }
+                                }
+                            },
+                            {
+                                get: () => config.text_color || defaultConfig.text_color,
+                                set: (value) => {
+                                    if (window.elementSdk) {
+                                        window.elementSdk.config.text_color = value;
+                                        window.elementSdk.setConfig({ text_color: value });
+                                    }
+                                }
+                            },
+                            {
+                                get: () => config.primary_color || defaultConfig.primary_color,
+                                set: (value) => {
+                                    if (window.elementSdk) {
+                                        window.elementSdk.config.primary_color = value;
+                                        window.elementSdk.setConfig({ primary_color: value });
+                                    }
+                                }
+                            },
+                            {
+                                get: () => config.accent_color || defaultConfig.accent_color,
+                                set: (value) => {
+                                    if (window.elementSdk) {
+                                        window.elementSdk.config.accent_color = value;
+                                        window.elementSdk.setConfig({ accent_color: value });
+                                    }
+                                }
+                            }
+                        ],
+                        borderables: [],
+                        fontEditable: undefined,
+                        fontSizeable: undefined
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ["platform_title", config.platform_title || defaultConfig.platform_title],
+                        ["subject_name", config.subject_name || defaultConfig.subject_name],
+                        ["student_name", config.student_name || defaultConfig.student_name]
+                    ])
+                });
+            }
+
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('fullscreenToggle').addEventListener('click', toggleFullscreen);
+            
+            renderCurrentView();
+        }
+
+        function getConfig() {
+            return window.elementSdk ? window.elementSdk.config : defaultConfig;
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+            
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            
+            if (isDarkMode) {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log('Fullscreen request failed');
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        function renderCurrentView() {
+            const mainContent = document.getElementById('mainContent');
+            
+            if (currentView === 'home') {
+                mainContent.innerHTML = renderHome();
+            } else if (currentView === 'quiz') {
+                mainContent.innerHTML = renderQuiz();
+            } else if (currentView === 'result') {
+                mainContent.innerHTML = renderResult();
+            } else if (currentView === 'review') {
+                mainContent.innerHTML = renderReview();
+            }
+            
+            attachEventListeners();
+        }
+
+        function renderHome() {
+            const config = getConfig();
+            return `
+                <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+                    <div class="header-gradient" style="padding: 40px; border-radius: 16px; margin-bottom: 40px; text-align: center;">
+                        <h1 class="arabic-text" style="font-size: 36px; font-weight: 900; margin-bottom: 12px; color: white;">
+                            ${config.platform_title || defaultConfig.platform_title}
+                        </h1>
+                        <p class="arabic-text" style="font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.9);">
+                            ${config.subject_name || defaultConfig.subject_name}
+                        </p>
+                        <div style="margin-top: 24px; padding: 16px; background: rgba(255,255,255,0.2); border-radius: 12px; display: inline-block;">
+                            <p class="arabic-text" style="font-size: 18px; color: white;">
+                                ��� الطالب: <strong>${config.student_name || defaultConfig.student_name}</strong>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <h2 class="arabic-text" style="font-size: 28px; font-weight: 700; margin-bottom: 24px; text-align: center;">
+                        اختر المحاضرة 📚
+                    </h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+                        ${lectures.map((lecture, index) => `
+                            <div class="card lecture-card" data-lecture-id="${lecture.id}">
+                                <div style="text-align: center; margin-bottom: 16px; font-size: 48px;">
+                                    ${lecture.icon}
+                                </div>
+                                <h3 class="english-text" style="font-size: 22px; font-weight: 600; margin-bottom: 8px; text-align: center; color: var(--medical-blue);">
+                                    ${lecture.title}
+                                </h3>
+                                <p class="arabic-text" style="font-size: 18px; text-align: center; color: var(--text-secondary); margin-bottom: 16px;">
+                                    ${lecture.titleAr}
+                                </p>
+                                <div class="stat-badge" style="justify-content: center; width: 100%;">
+                                    <span>📝</span>
+                                    <span class="arabic-text">${lecture.questionsCount} أسئلة</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQuiz() {
+            const config = getConfig();
+            const question = currentLecture.questions[currentQuestionIndex];
+            const progress = ((currentQuestionIndex) / currentLecture.questions.length) * 100;
+            
+            return `
+                <div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h2 class="english-text" style="font-size: 24px; font-weight: 600; color: var(--medical-blue);">
+                                ${currentLecture.icon} ${currentLecture.title}
+                            </h2>
+                            <span class="arabic-text stat-badge">
+                                السؤال ${currentQuestionIndex + 1} من ${currentLecture.questions.length}
+                            </span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 32px; direction: ltr;">
+                            <div style="flex: 1; text-align: left;">
+                                <h3 class="english-text" style="font-size: 22px; font-weight: 600; line-height: 1.8; margin-bottom: 12px; color: var(--text-primary);">
+                                    ${question.question}
+                                </h3>
+                                <div id="translation-${question.id}" style="display: none;">
+                                    <div class="translation-box" style="direction: rtl; text-align: right;">
+                                        <p class="arabic-text" style="font-size: 18px; line-height: 1.8;">
+                                            ${question.questionAr}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="translate-icon" data-question-id="${question.id}" style="margin-right: 0; margin-left: 16px;">
+                                <span style="font-weight: 700; font-size: 14px;">ع</span>
+                            </div>
+                        </div>
+                        
+                        <div id="options-container" style="direction: ltr;">
+                            ${question.type === 'multiple' ? 
+                                question.options.map((option, index) => `
+                                    <button class="option-button english-text" data-option-index="${index}" style="margin-bottom: 16px; text-align: left; font-size: 18px; padding: 20px;">
+                                        <strong style="font-size: 20px; margin-right: 12px;">${String.fromCharCode(65 + index)}.</strong> ${option}
+                                    </button>
+                                `).join('') :
+                                `
+                                    <button class="option-button english-text" data-option-index="true" style="margin-bottom: 16px; text-align: left; font-size: 18px; padding: 20px;">
+                                        <strong style="font-size: 20px; margin-right: 12px;">✓</strong> True
+                                    </button>
+                                    <button class="option-button english-text" data-option-index="false" style="margin-bottom: 16px; text-align: left; font-size: 18px; padding: 20px;">
+                                        <strong style="font-size: 20px; margin-right: 12px;">✗</strong> False
+                                    </button>
+                                `
+                            }
+                        </div>
+                        
+                        <div id="feedback-container"></div>
+                        <div id="next-button-container" style="text-align: center;"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderResult() {
+            const config = getConfig();
+            const percentage = Math.round((score / currentLecture.questions.length) * 100);
+            let resultClass = 'result-fail';
+            let message = 'لا بأس، كل خبير كان مبتدئاً. راجع إجاباتك وحاول مجدداً! 💪';
+            let emoji = '😔';
+            
+            if (percentage >= 90) {
+                resultClass = 'result-excellent';
+                message = 'أداء أسطوري! أنت حقاً تفهم المادة بعمق. تهانينا! 🏆';
+                emoji = '🌟';
+                createConfetti();
+            } else if (percentage >= 50) {
+                resultClass = 'result-good';
+                message = 'أداء جيد! استمر في التقدم والمراجعة لتحقيق الأفضل. 📈';
+                emoji = '👍';
+            }
+            
+            return `
+                <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+                    <div class="card ${resultClass}" style="text-align: center; padding: 48px 24px; margin-bottom: 24px;">
+                        <div style="font-size: 80px; margin-bottom: 24px;">${emoji}</div>
+                        <h2 class="arabic-text" style="font-size: 32px; font-weight: 900; margin-bottom: 16px;">
+                            نتيجة الاختبار
+                        </h2>
+                        <div style="font-size: 64px; font-weight: 900; margin: 24px 0;">
+                            ${percentage}%
+                        </div>
+                        <p class="arabic-text" style="font-size: 20px; line-height: 1.8; margin-bottom: 24px;">
+                            ${message}
+                        </p>
+                        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
+                            <div style="background: rgba(255,255,255,0.2); padding: 16px 24px; border-radius: 12px; min-width: 150px;">
+                                <div style="font-size: 14px; margin-bottom: 8px;">✅ إجابات صحيحة</div>
+                                <div style="font-size: 28px; font-weight: 700;">${score}</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.2); padding: 16px 24px; border-radius: 12px; min-width: 150px;">
+                                <div style="font-size: 14px; margin-bottom: 8px;">❌ إجابات خاطئة</div>
+                                <div style="font-size: 28px; font-weight: 700;">${currentLecture.questions.length - score}</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.2); padding: 16px 24px; border-radius: 12px; min-width: 150px;">
+                                <div style="font-size: 14px; margin-bottom: 8px;">📊 المجموع الكلي</div>
+                                <div style="font-size: 28px; font-weight: 700;">${currentLecture.questions.length}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="text-align: center;">
+                        <button class="btn-primary" id="reviewBtn" style="margin: 8px; font-size: 18px;">
+                            📖 مراجعة الاختبار
+                        </button>
+                        <button class="btn-primary" id="homeBtn" style="margin: 8px; font-size: 18px; background: var(--tech-gray);">
+                            🏠 العودة للرئيسية
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderReview() {
+            const config = getConfig();
+            return `
+                <div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+                    <div class="card" style="margin-bottom: 24px;">
+                        <h2 class="arabic-text" style="font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 16px;">
+                            📖 مراجعة الاختبار
+                        </h2>
+                        <p class="arabic-text" style="text-align: center; color: var(--text-secondary); font-size: 16px;">
+                            ${currentLecture.title} - ${currentLecture.titleAr}
+                        </p>
+                    </div>
+                    
+                    ${currentLecture.questions.map((question, index) => {
+                        const userAnswer = answers[index];
+                        const isCorrect = question.type === 'multiple' 
+                            ? userAnswer === question.correct 
+                            : userAnswer === question.correct;
+                        
+                        return `
+                            <div class="card" style="margin-bottom: 24px; border-right: 4px solid ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'};">
+                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                    <div style="font-size: 32px;">${isCorrect ? '✅' : '❌'}</div>
+                                    <h3 class="arabic-text" style="font-size: 18px; font-weight: 600;">
+                                        السؤال ${index + 1}
+                                    </h3>
+                                </div>
+                                
+                                <p class="english-text" style="font-size: 18px; margin-bottom: 8px; font-weight: 500;">
+                                    ${question.question}
+                                </p>
+                                <p class="arabic-text" style="font-size: 16px; color: var(--text-secondary); margin-bottom: 16px;">
+                                    ${question.questionAr}
+                                </p>
+                                
+                                ${question.type === 'multiple' ? `
+                                    <div style="margin-bottom: 16px;">
+                                        <div style="margin-bottom: 8px;">
+                                            <strong class="arabic-text">إجابتك:</strong>
+                                            <span class="english-text" style="color: ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'}; font-weight: 600;">
+                                                ${question.options[userAnswer]}
+                                            </span>
+                                        </div>
+                                        ${!isCorrect ? `
+                                            <div>
+                                                <strong class="arabic-text" style="color: var(--success-color);">الإجابة الصحيحة:</strong>
+                                                <span class="english-text" style="color: var(--success-color); font-weight: 600;">
+                                                    ${question.options[question.correct]}
+                                                </span>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                ` : `
+                                    <div style="margin-bottom: 16px;">
+                                        <div style="margin-bottom: 8px;">
+                                            <strong class="arabic-text">إجابتك:</strong>
+                                            <span class="english-text" style="color: ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'}; font-weight: 600;">
+                                                ${userAnswer ? 'True' : 'False'}
+                                            </span>
+                                        </div>
+                                        ${!isCorrect ? `
+                                            <div>
+                                                <strong class="arabic-text" style="color: var(--success-color);">الإجابة الصحيحة:</strong>
+                                                <span class="english-text" style="color: var(--success-color); font-weight: 600;">
+                                                    ${question.correct ? 'True' : 'False'}
+                                                </span>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `}
+                                
+                                <div style="background: rgba(37, 99, 235, 0.1); border-right: 4px solid var(--medical-blue); padding: 16px; border-radius: 8px;">
+                                    <strong class="arabic-text" style="color: var(--medical-blue);">💡 الشرح:</strong>
+                                    <p class="arabic-text" style="margin-top: 8px; line-height: 1.8;">
+                                        ${question.explanation}
+                                    </p>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                    
+                    <div class="card" style="text-align: center;">
+                        <button class="btn-primary" id="homeBtn" style="font-size: 18px;">
+                            🏠 العودة للرئيسية
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function attachEventListeners() {
+            const lectureCards = document.querySelectorAll('.lecture-card');
+            lectureCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const lectureId = e.currentTarget.dataset.lectureId;
+                    startQuiz(lectureId);
+                });
+            });
+            
+            const translateIcons = document.querySelectorAll('.translate-icon');
+            translateIcons.forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    const questionId = e.currentTarget.dataset.questionId;
+                    toggleTranslation(questionId);
+                });
+            });
+            
+            const optionButtons = document.querySelectorAll('.option-button');
+            optionButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const optionIndex = e.currentTarget.dataset.optionIndex;
+                    handleAnswer(optionIndex);
+                });
+            });
+            
+            const reviewBtn = document.getElementById('reviewBtn');
+            if (reviewBtn) {
+                reviewBtn.addEventListener('click', () => {
+                    currentView = 'review';
+                    renderCurrentView();
+                });
+            }
+            
+            const homeButtons = document.querySelectorAll('#homeBtn');
+            homeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    resetQuiz();
+                    currentView = 'home';
+                    renderCurrentView();
+                });
+            });
+        }
+
+        function startQuiz(lectureId) {
+            currentLecture = lectures.find(l => l.id === lectureId);
+            currentQuestionIndex = 0;
+            score = 0;
+            answers = [];
+            showingTranslation = {};
+            currentView = 'quiz';
+            renderCurrentView();
+        }
+
+        function toggleTranslation(questionId) {
+            const translationDiv = document.getElementById(`translation-${questionId}`);
+            if (translationDiv) {
+                if (translationDiv.style.display === 'none') {
+                    translationDiv.style.display = 'block';
+                } else {
+                    translationDiv.style.display = 'none';
+                }
+            }
+        }
+
+        async function handleAnswer(optionIndex) {
+            const question = currentLecture.questions[currentQuestionIndex];
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const nextButtonContainer = document.getElementById('next-button-container');
+            const buttons = optionsContainer.querySelectorAll('.option-button');
+            
+            buttons.forEach(btn => btn.disabled = true);
+            
+            let userAnswer;
+            let isCorrect;
+            
+            if (question.type === 'multiple') {
+                userAnswer = parseInt(optionIndex);
+                isCorrect = userAnswer === question.correct;
+            } else {
+                userAnswer = optionIndex === 'true';
+                isCorrect = userAnswer === question.correct;
+            }
+            
+            answers.push(userAnswer);
+            
+            buttons.forEach((btn, idx) => {
+                if (question.type === 'multiple') {
+                    if (idx === question.correct) {
+                        btn.classList.add('correct');
+                    } else if (idx === userAnswer && !isCorrect) {
+                        btn.classList.add('incorrect');
+                    }
+                } else {
+                    const btnValue = btn.dataset.optionIndex === 'true';
+                    if (btnValue === question.correct) {
+                        btn.classList.add('correct');
+                    } else if (btnValue === userAnswer && !isCorrect) {
+                        btn.classList.add('incorrect');
+                    }
+                }
+            });
+            
+            if (isCorrect) {
+                score++;
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < currentLecture.questions.length) {
+                        renderCurrentView();
+                    } else {
+                        finishQuiz();
+                    }
+                }, 1500);
+            } else {
+                feedbackContainer.innerHTML = `
+                    <div class="feedback-box">
+                        <strong class="arabic-text" style="color: var(--error-color); font-size: 20px;">💡 الشرح:</strong>
+                        <p class="arabic-text" style="margin-top: 16px; line-height: 2; font-size: 18px;">
+                            ${question.explanation}
+                        </p>
+                    </div>
+                `;
+                
+                nextButtonContainer.innerHTML = `
+                    <button class="next-button arabic-text" id="nextQuestionBtn">
+                        التالي ⬅️
+                    </button>
+                `;
+                
+                document.getElementById('nextQuestionBtn').addEventListener('click', () => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < currentLecture.questions.length) {
+                        renderCurrentView();
+                    } else {
+                        finishQuiz();
+                    }
+                });
+            }
+        }
+
+        async function finishQuiz() {
+            if (recordCount >= 999) {
+                const resultMessage = document.createElement('div');
+                resultMessage.className = 'card';
+                resultMessage.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; background: var(--error-color); color: white; padding: 20px; border-radius: 12px; max-width: 500px;';
+                resultMessage.innerHTML = '<p class="arabic-text" style="font-size: 18px; text-align: center;">⚠️ تم الوصول إلى الحد الأقصى من 999 نتيجة. ي��جى حذف بعض النتائج السابقة أولاً.</p>';
+                document.body.appendChild(resultMessage);
+                setTimeout(() => resultMessage.remove(), 5000);
+                
+                currentView = 'result';
+                renderCurrentView();
+                return;
+            }
+
+            const config = getConfig();
+            const resultData = {
+                lecture_id: currentLecture.id,
+                student_name: config.student_name || defaultConfig.student_name,
+                score: score,
+                total_questions: currentLecture.questions.length,
+                completed_at: new Date().toISOString(),
+                answers: JSON.stringify(answers)
+            };
+            
+            const createResult = await window.dataSdk.create(resultData);
+            
+            if (!createResult.isOk) {
+                console.error("Failed to save quiz result");
+            }
+            
+            currentView = 'result';
+            renderCurrentView();
+        }
+
+        function resetQuiz() {
+            currentLecture = null;
+            currentQuestionIndex = 0;
+            score = 0;
+            answers = [];
+            showingTranslation = {};
+        }
+
+        function createConfetti() {
+            const colors = ['#fbbf24', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+            const confettiCount = 50;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a93fc57c206d0e2',t:'MTc2NDk0MjM0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
